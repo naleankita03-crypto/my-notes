@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>.NET Notes</title>
+</head>
+
+<body>
+
+<h1>.NET Practical Programs</h1>
+
+<h2>Program 1: 1. Create a ProductController with actions returning different types: a View, a JSON
+object of product d</h2>
+<pre>
+Step 1: Create Product Model
+namespace MyApp.Models
+{
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+    }
+}
+
+📌 Step 2: Create ProductController
+using Microsoft.AspNetCore.Mvc;
+using MyApp.Models;
+using System.Collections.Generic;
+
+namespace MyApp.Controllers
+{
+    public class ProductController : Controller
+    {
+        // Sample Data
+        private static List<Product> products = new List<Product>()
+        {
+            new Product { Id = 1, Name = "Laptop", Price = 50000 },
+            new Product { Id = 2, Name = "Mobile", Price = 20000 },
+            new Product { Id = 3, Name = "Headphones", Price = 3000 }
+        };
+
+        // 👉 Action returning View
+        public IActionResult Index()
+        {
+            return View(products); // Sends data to View
+        }
+
+        // 👉 Action returning JSON
+        public JsonResult GetProducts()
+        {
+            return Json(products); // Returns JSON data
+        }
+
+        // 👉 Action returning single product as JSON
+        public JsonResult GetProductById(int id)
+        {
+            var product = products.Find(p => p.Id == id);
+            return Json(product);
+        }
+    }
+}
+
+📌 Step 3: Create View (Index.cshtml)
+
+📁 Views/Product/Index.cshtml
+
+@model List<MyApp.Models.Product>
+
+<h2>Product List</h2>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+        </tr>
+    }
+</table>
+</pre>
+
+
+</body>
+
+</html>
