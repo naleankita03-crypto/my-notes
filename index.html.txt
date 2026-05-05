@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>.NET Notes</title>
-</head>
 
-<body>
+ 1. Create a ProductController with actions returning different types: a View, a JSON
+object of product d
 
-<h1>.NET Practical Programs</h1>
-
-<h2>Program 1: 1. Create a ProductController with actions returning different types: a View, a JSON
-object of product d</h2>
-<pre>
 Step 1: Create Product Model
 namespace MyApp.Models
 {
@@ -84,10 +75,2541 @@ namespace MyApp.Controllers
             <td>@item.Price</td>
         </tr>
     }
-</table>
-</pre>
 
+
+
+
+
+
+2. Implement an action that redirects the user from a "Legacy" page to a "New" page using RedirectToAction. asp.net program step by step process sang
+STEP 1: Controller तयार करा
+
+👉 Controllers folder मध्ये नवीन Controller तयार करा:
+
+HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+
+namespace YourProjectName.Controllers
+{
+    public class HomeController : Controller
+    {
+        // Legacy Action (Old Page)
+        public IActionResult Legacy()
+        {
+            // Redirect to New action
+            return RedirectToAction("New");
+        }
+
+        // New Action (Target Page)
+        public IActionResult New()
+        {
+            return View();
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+👉 Views → Home → New.cshtml file तयार करा
+
+@{
+    ViewData["Title"] = "New Page";
+}
+
+<h2>Welcome to New Page 🎉</h2>
+<p>You have been redirected from Legacy Page.</p>
+🧩 STEP 3: Routing check करा
+
+👉 Program.cs मध्ये default route असा असतो (check करा):
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Legacy}/{id?}");
+
+👉 यामुळे app run केल्यावर direct /Legacy call होईल
+
+🧩 STEP 4: Run करा
+
+👉 Browser मध्ये run करा:
+
+https://localhost:xxxx/Home/Legacy
+
+
+
+
+
+3. Create a ASP.Net Web Application using MVC , which will contain following 
+controllers and views. Also create Custom Route for each controller –  
+Employee  Department  Student 
+STEP 2: Controllers तयार करा
+
+👉 Controllers folder → Right Click → Add → Controller
+
+📌 1. EmployeeController
+using Microsoft.AspNetCore.Mvc;
+
+namespace MVCApp.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+📌 2. DepartmentController
+using Microsoft.AspNetCore.Mvc;
+
+namespace MVCApp.Controllers
+{
+    public class DepartmentController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+📌 3. StudentController
+using Microsoft.AspNetCore.Mvc;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+🧩 STEP 3: Views तयार करा
+
+👉 प्रत्येक controller साठी view बनवा
+
+📌 Employee View
+
+📁 Path: Views/Employee/Index.cshtml
+
+<h2>Employee Page</h2>
+<p>Welcome to Employee Controller View</p>
+📌 Department View
+
+📁 Path: Views/Department/Index.cshtml
+
+<h2>Department Page</h2>
+<p>Welcome to Department Controller View</p>
+📌 Student View
+
+📁 Path: Views/Student/Index.cshtml
+
+<h2>Student Page</h2>
+<p>Welcome to Student Controller View</p>
+🧩 STEP 4: Custom Routes तयार करा
+
+👉 Program.cs file open करा
+
+👉 खालील routes add करा:
+
+app.MapControllerRoute(
+    name: "employee",
+    pattern: "emp",
+    defaults: new { controller = "Employee", action = "Index" });
+
+app.MapControllerRoute(
+    name: "department",
+    pattern: "dept",
+    defaults: new { controller = "Department", action = "Index" });
+
+app.MapControllerRoute(
+    name: "student",
+    pattern: "stud",
+    defaults: new { controller = "Student", action = "Index" });
+
+// Default route
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+🧩 STEP 5: Run आणि Test करा
+
+👉 Browser मध्ये URLs टाका:
+
+https://localhost:xxxx/emp     → Employee Page
+https://localhost:xxxx/dept    → Department Page
+https://localhost:xxxx/stud    → Student Page
+
+
+
+
+4. Create a View that displays a list of strings (e.g., Top 5 Programming Languages) 
+using a @foreach loop.
+STEP 1: Controller तयार करा
+
+👉 HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Languages()
+        {
+            // List of strings
+            List<string> languages = new List<string>()
+            {
+                "C",
+                "C++",
+                "Java",
+                "Python",
+                "C#"
+            };
+
+            return View(languages);
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Path: Views/Home/Languages.cshtml
+
+@model List<string>
+
+<h2>Top 5 Programming Languages 💻</h2>
+
+<ul>
+    @foreach (var lang in Model)
+    {
+        <li>@lang</li>
+    }
+</ul>
+🧩 STEP 3: Run करा
+
+👉 Browser मध्ये run करा:
+
+https://localhost:xxxx/Home/Languages
+
+
+
+
+5. Develop a page that uses @if-else logic to display a "Good Morning" or "Good 
+Evening" message based on the system time. 
+STEP 1: Controller तयार करा
+
+👉 HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System;
+
+namespace MVCApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Greeting()
+        {
+            return View();
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Path: Views/Home/Greeting.cshtml
+
+@{
+    ViewData["Title"] = "Greeting Page";
+
+    // Get current system time
+    var hour = DateTime.Now.Hour;
+}
+
+<h2>Greeting Message 👋</h2>
+
+@if (hour < 12)
+{
+    <h3 style="color:green;">Good Morning 🌅</h3>
+}
+else
+{
+    <h3 style="color:blue;">Good Evening 🌇</h3>
+}
+🧩 STEP 3: Run करा
+
+👉 Browser मध्ये:
+
+https://localhost:xxxx/Home/Greeting
+
+
+
+6.  Create a Student class with properties: 
+• StudentId, StudentName, StudentAddress, MobileNo, EmailId, BirthDate, 
+Age, Password, ConfirmPassword. 
+Apply Data Annotations for validation: 
+• Required fields 
+• String length limits 
+• Regular expressions for mobile/email 
+• Compare for password confirmation 
+• Range for age
+🧩 STEP 2: Student Class Code
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class Student
+    {
+        [Required(ErrorMessage = "Student Id is required")]
+        public int StudentId { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be 3 to 50 characters")]
+        public string StudentName { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(100)]
+        public string StudentAddress { get; set; }
+
+        [Required(ErrorMessage = "Mobile number is required")]
+        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Enter valid 10-digit mobile number")]
+        public string MobileNo { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string EmailId { get; set; }
+
+        [Required(ErrorMessage = "Birth date is required")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+
+        [Required(ErrorMessage = "Age is required")]
+        [Range(18, 60, ErrorMessage = "Age must be between 18 and 60")]
+        public int Age { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Password must be 6-20 characters")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password must match")]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
+    }
+}
+🧩 STEP 3: Controller (Form handle करण्यासाठी)
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        // GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Create(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                // Save logic (DB or display)
+                return Content("Student data is valid 👍");
+            }
+
+            return View(student);
+        }
+    }
+}
+🧩 STEP 4: View तयार करा (Form)
+
+📁 Path: Views/Student/Create.cshtml
+
+@model MVCApp.Models.Student
+
+<h2>Student Registration Form</h2>
+
+<form asp-action="Create" method="post">
+    
+    <label>Name</label>
+    <input asp-for="StudentName" class="form-control" />
+    <span asp-validation-for="StudentName" class="text-danger"></span>
+
+    <label>Address</label>
+    <input asp-for="StudentAddress" class="form-control" />
+    <span asp-validation-for="StudentAddress" class="text-danger"></span>
+
+    <label>Mobile</label>
+    <input asp-for="MobileNo" class="form-control" />
+    <span asp-validation-for="MobileNo" class="text-danger"></span>
+
+    <label>Email</label>
+    <input asp-for="EmailId" class="form-control" />
+    <span asp-validation-for="EmailId" class="text-danger"></span>
+
+    <label>Birth Date</label>
+    <input asp-for="BirthDate" type="date" class="form-control" />
+    <span asp-validation-for="BirthDate" class="text-danger"></span>
+
+    <label>Age</label>
+    <input asp-for="Age" class="form-control" />
+    <span asp-validation-for="Age" class="text-danger"></span>
+
+    <label>Password</label>
+    <input asp-for="Password" class="form-control" />
+    <span asp-validation-for="Password" class="text-danger"></span>
+
+    <label>Confirm Password</label>
+    <input asp-for="ConfirmPassword" class="form-control" />
+    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+7. Create a Marks class with properties: 
+o MarkId, StudentId, SubjectId,  MarksObtained   
+Apply Data Annotations for validation: 
+• Required fields for StudentId 
+• Required field for SubjectId 
+• Range for Marks
+STEP 2: Marks Class Code
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class Marks
+    {
+        public int MarkId { get; set; }
+
+        [Required(ErrorMessage = "Student Id is required")]
+        public int StudentId { get; set; }
+
+        [Required(ErrorMessage = "Subject Id is required")]
+        public int SubjectId { get; set; }
+
+        [Required(ErrorMessage = "Marks is required")]
+        [Range(0, 100, ErrorMessage = "Marks must be between 0 and 100")]
+        public int MarksObtained { get; set; }
+    }
+}
+🧩 STEP 3: Controller (Optional – Form Handle)
+
+👉 MarksController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class MarksController : Controller
+    {
+        // GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Create(Marks marks)
+        {
+            if (ModelState.IsValid)
+            {
+                return Content("Marks data is valid ✅");
+            }
+
+            return View(marks);
+        }
+    }
+}
+🧩 STEP 4: View (Form)
+
+📁 Path: Views/Marks/Create.cshtml
+
+@model MVCApp.Models.Marks
+
+<h2>Enter Marks</h2>
+
+<form asp-action="Create" method="post">
+
+    <label>Student Id</label>
+    <input asp-for="StudentId" class="form-control" />
+    <span asp-validation-for="StudentId" class="text-danger"></span>
+
+    <label>Subject Id</label>
+    <input asp-for="SubjectId" class="form-control" />
+    <span asp-validation-for="SubjectId" class="text-danger"></span>
+
+    <label>Marks</label>
+    <input asp-for="MarksObtained" class="form-control" />
+    <span asp-validation-for="MarksObtained" class="text-danger"></span>
+
+    <br />
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+8. Create a "Registration" form with the contents (UserName, Password, 
+ConfirmPassrod, MobileNo and EmailId) and display validation error messages 
+using @Html.ValidationMessageFor.
+🧩 STEP 1: Model तयार करा
+
+👉 Models folder → Add → Class
+👉 नाव: User.cs
+
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class User
+    {
+        [Required(ErrorMessage = "User Name is required")]
+        [StringLength(50, MinimumLength = 3)]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(20, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Mobile number is required")]
+        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Enter valid mobile number")]
+        public string MobileNo { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email")]
+        public string EmailId { get; set; }
+    }
+}
+🧩 STEP 2: Controller तयार करा
+
+👉 AccountController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class AccountController : Controller
+    {
+        // GET
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                return Content("Registration Successful ✅");
+            }
+
+            return View(user);
+        }
+    }
+}
+🧩 STEP 3: View तयार करा
+
+📁 Path: Views/Account/Register.cshtml
+
+@model MVCApp.Models.User
+
+<h2>Registration Form 📝</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>User Name</label>
+        @Html.TextBoxFor(m => m.UserName)
+        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Password</label>
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Confirm Password</label>
+        @Html.PasswordFor(m => m.ConfirmPassword)
+        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Mobile No</label>
+        @Html.TextBoxFor(m => m.MobileNo)
+        @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Email</label>
+        @Html.TextBoxFor(m => m.EmailId)
+        @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+    <button type="submit">Register</button>
+}
+
+
+
+9.  Create a Student Registration Form 
+• Build a Create View using Razor. 
+• Use Html.EditorFor and Html.ValidationMessageFor. 
+• Ensure client-side validation works with jQuery Unobtrusive Validation.
+🧩 STEP 1: Student Model (Validation सहित)
+
+👉 Models/Student.cs
+
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class Student
+    {
+        public int StudentId { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        public string StudentName { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
+        public string StudentAddress { get; set; }
+
+        [Required(ErrorMessage = "Mobile is required")]
+        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Enter valid mobile")]
+        public string MobileNo { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress]
+        public string EmailId { get; set; }
+
+        [Required(ErrorMessage = "Birth Date required")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+    }
+}
+🧩 STEP 2: Controller तयार करा
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        // GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Create(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                return Content("Student Registered Successfully ✅");
+            }
+            return View(student);
+        }
+    }
+}
+🧩 STEP 3: Create View (Razor)
+
+📁 Views/Student/Create.cshtml
+
+@model MVCApp.Models.Student
+
+<h2>Student Registration Form 🎓</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>Name</label>
+        @Html.EditorFor(m => m.StudentName)
+        @Html.ValidationMessageFor(m => m.StudentName, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Address</label>
+        @Html.EditorFor(m => m.StudentAddress)
+        @Html.ValidationMessageFor(m => m.StudentAddress, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Mobile</label>
+        @Html.EditorFor(m => m.MobileNo)
+        @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Email</label>
+        @Html.EditorFor(m => m.EmailId)
+        @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Birth Date</label>
+        @Html.EditorFor(m => m.BirthDate)
+        @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+    <button type="submit">Register</button>
+}
+🧩 STEP 4: jQuery Validation Enable करा
+
+👉 _Layout.cshtml किंवा View मध्ये खालील scripts add करा:
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+👉 _ValidationScriptsPartial.cshtml मध्ये already असतं:
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+10.  Add a custom validation attribute to ensure BirthDate is not in the future.
+🧩 STEP 1: Custom Validation Class तयार करा
+
+👉 Models folder → Add → Class
+👉 नाव: BirthDateValidation.cs
+
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class BirthDateValidation : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value != null)
+            {
+                DateTime birthDate = Convert.ToDateTime(value);
+
+                if (birthDate > DateTime.Now)
+                {
+                    return new ValidationResult("Birth Date cannot be in the future ❌");
+                }
+            }
+
+            return ValidationResult.Success;
+        }
+    }
+}
+🧩 STEP 2: Student Model मध्ये Apply करा
+
+👉 Student.cs
+
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class Student
+    {
+        public int StudentId { get; set; }
+
+        [Required]
+        public string StudentName { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [BirthDateValidation] // 👈 Custom Validation
+        public DateTime BirthDate { get; set; }
+    }
+}
+🧩 STEP 3: View मध्ये Validation Message दाखवा
+
+📁 Views/Student/Create.cshtml
+
+<div>
+    <label>Birth Date</label>
+    @Html.EditorFor(m => m.BirthDate)
+    @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
+</div>
+
+
+
+
+11. Create a "Contact Us" form using BeginForm and Strongly-typed HTML helpers.
+🧩 STEP 1: Model तयार करा
+
+👉 Models folder → Add → Class
+👉 नाव: Contact.cs
+
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class Contact
+    {
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Message is required")]
+        public string Message { get; set; }
+    }
+}
+🧩 STEP 2: Controller तयार करा
+
+👉 HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        // GET
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Contact(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                return Content("Message sent successfully ✅");
+            }
+
+            return View(contact);
+        }
+    }
+}
+🧩 STEP 3: View तयार करा
+
+📁 Path: Views/Home/Contact.cshtml
+
+@model MVCApp.Models.Contact
+
+<h2>Contact Us 📞</h2>
+
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+{
+    <div>
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Email</label>
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Message</label>
+        @Html.TextAreaFor(m => m.Message)
+        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+    <button type="submit">Send</button>
+}
+
+
+
+12. Write a POST action that receives a completed Model object and displays the 
+submitted data on a "Success" page. 
+🧩 STEP 1: Model तयार करा
+
+👉 Example: User.cs
+
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCApp.Models
+{
+    public class User
+    {
+        public string UserName { get; set; }
+        public string EmailId { get; set; }
+    }
+}
+🧩 STEP 2: Controller तयार करा
+
+👉 AccountController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+
+namespace MVCApp.Controllers
+{
+    public class AccountController : Controller
+    {
+        // GET → Form page
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // POST → Form submit
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                // Redirect to Success page and pass data
+                return View("Success", user);
+            }
+
+            return View(user);
+        }
+
+        // Success page
+        public IActionResult Success(User user)
+        {
+            return View(user);
+        }
+    }
+}
+🧩 STEP 3: Form View तयार करा
+
+📁 Views/Account/Register.cshtml
+
+@model MVCApp.Models.User
+
+<h2>Register</h2>
+
+<form asp-action="Register" method="post">
+    
+    <label>Name</label>
+    <input asp-for="UserName" />
+    
+    <label>Email</label>
+    <input asp-for="EmailId" />
+
+    <br />
+    <button type="submit">Submit</button>
+</form>
+🧩 STEP 4: Success View तयार करा
+
+📁 Views/Account/Success.cshtml
+
+@model MVCApp.Models.User
+
+<h2>Registration Successful 🎉</h2>
+
+<p><b>Name:</b> @Model.UserName</p>
+<p><b>Email:</b> @Model.EmailId</p>
+
+
+
+13. Create a database table Employees(EmpId, EmpName, EmpAddress, MobileNo,  
+BirthDate,Password). Write a Controller action and Views to implement Create , 
+Read , Update operation using ADO.Net. 
+🧩 STEP 1: Database Table तयार करा (SQL)
+
+👉 SQL Server मध्ये run करा:
+
+CREATE TABLE Employees
+(
+    EmpId INT PRIMARY KEY IDENTITY(1,1),
+    EmpName NVARCHAR(50),
+    EmpAddress NVARCHAR(100),
+    MobileNo NVARCHAR(10),
+    BirthDate DATE,
+    Password NVARCHAR(50)
+);
+🧩 STEP 2: Model तयार करा
+
+👉 Models/Employee.cs
+
+using System;
+
+namespace MVCApp.Models
+{
+    public class Employee
+    {
+        public int EmpId { get; set; }
+        public string EmpName { get; set; }
+        public string EmpAddress { get; set; }
+        public string MobileNo { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Password { get; set; }
+    }
+}
+🧩 STEP 3: Connection String
+
+👉 appsettings.json
+
+"ConnectionStrings": {
+  "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeDB;Integrated Security=True;"
+}
+🧩 STEP 4: Controller (ADO.NET CRUD)
+
+👉 EmployeeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Data.SqlClient;
+using System.Data;
+
+namespace MVCApp.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        private readonly string conStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeDB;Integrated Security=True;";
+
+        // 🔹 READ (List)
+        public IActionResult Index()
+        {
+            List<Employee> list = new List<Employee>();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees", con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(new Employee
+                    {
+                        EmpId = Convert.ToInt32(dr["EmpId"]),
+                        EmpName = dr["EmpName"].ToString(),
+                        EmpAddress = dr["EmpAddress"].ToString(),
+                        MobileNo = dr["MobileNo"].ToString(),
+                        BirthDate = Convert.ToDateTime(dr["BirthDate"]),
+                        Password = dr["Password"].ToString()
+                    });
+                }
+            }
+            return View(list);
+        }
+
+        // 🔹 CREATE GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // 🔹 CREATE POST
+        [HttpPost]
+        public IActionResult Create(Employee emp)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "INSERT INTO Employees VALUES(@EmpName,@EmpAddress,@MobileNo,@BirthDate,@Password)";
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@EmpName", emp.EmpName);
+                cmd.Parameters.AddWithValue("@EmpAddress", emp.EmpAddress);
+                cmd.Parameters.AddWithValue("@MobileNo", emp.MobileNo);
+                cmd.Parameters.AddWithValue("@BirthDate", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@Password", emp.Password);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // 🔹 UPDATE GET
+        public IActionResult Edit(int id)
+        {
+            Employee emp = new Employee();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE EmpId=@id", con);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    emp.EmpId = Convert.ToInt32(dr["EmpId"]);
+                    emp.EmpName = dr["EmpName"].ToString();
+                    emp.EmpAddress = dr["EmpAddress"].ToString();
+                    emp.MobileNo = dr["MobileNo"].ToString();
+                    emp.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
+                    emp.Password = dr["Password"].ToString();
+                }
+            }
+            return View(emp);
+        }
+
+        // 🔹 UPDATE POST
+        [HttpPost]
+        public IActionResult Edit(Employee emp)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "UPDATE Employees SET EmpName=@EmpName,EmpAddress=@EmpAddress,MobileNo=@MobileNo,BirthDate=@BirthDate,Password=@Password WHERE EmpId=@EmpId";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@EmpId", emp.EmpId);
+                cmd.Parameters.AddWithValue("@EmpName", emp.EmpName);
+                cmd.Parameters.AddWithValue("@EmpAddress", emp.EmpAddress);
+                cmd.Parameters.AddWithValue("@MobileNo", emp.MobileNo);
+                cmd.Parameters.AddWithValue("@BirthDate", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@Password", emp.Password);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+    }
+}
+🧩 STEP 5: Views
+📌 1. Index.cshtml (Read)
+@model List<MVCApp.Models.Employee>
+
+<h2>Employee List</h2>
+
+<a href="/Employee/Create">Add New</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.EmpName</td>
+            <td>@item.EmpAddress</td>
+            <td>@item.MobileNo</td>
+            <td>
+                <a href="/Employee/Edit/@item.EmpId">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+📌 2. Create.cshtml
+@model MVCApp.Models.Employee
+
+<h2>Add Employee</h2>
+
+<form asp-action="Create" method="post">
+    <input asp-for="EmpName" placeholder="Name" />
+    <input asp-for="EmpAddress" placeholder="Address" />
+    <input asp-for="MobileNo" placeholder="Mobile" />
+    <input asp-for="BirthDate" type="date" />
+    <input asp-for="Password" type="password" />
+
+    <button type="submit">Save</button>
+</form>
+📌 3. Edit.cshtml
+@model MVCApp.Models.Employee
+
+<h2>Edit Employee</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="EmpId" />
+
+    <input asp-for="EmpName" />
+    <input asp-for="EmpAddress" />
+    <input asp-for="MobileNo" />
+    <input asp-for="BirthDate" type="date" />
+    <input asp-for="Password" />
+
+    <button type="submit">Update</button>
+</form>
+
+
+
+14. Create a database table Employees(EmpId, EmpName, EmpAddress, MobileNo,  
+BirthDate,Password). Write a Controller action and Views to implement Create , 
+Read , Delete operation using ADO.Net. 
+🧩 STEP 1: SQL Table तयार करा
+CREATE TABLE Employees
+(
+    EmpId INT PRIMARY KEY IDENTITY(1,1),
+    EmpName NVARCHAR(50),
+    EmpAddress NVARCHAR(100),
+    MobileNo NVARCHAR(10),
+    BirthDate DATE,
+    Password NVARCHAR(50)
+);
+🧩 STEP 2: Model तयार करा
+
+👉 Models/Employee.cs
+
+using System;
+
+namespace MVCApp.Models
+{
+    public class Employee
+    {
+        public int EmpId { get; set; }
+        public string EmpName { get; set; }
+        public string EmpAddress { get; set; }
+        public string MobileNo { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Password { get; set; }
+    }
+}
+🧩 STEP 3: Connection String
+
+👉 appsettings.json
+
+"ConnectionStrings": {
+  "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeDB;Integrated Security=True;"
+}
+🧩 STEP 4: Controller (ADO.NET)
+
+👉 EmployeeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Data.SqlClient;
+
+namespace MVCApp.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        string conStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeDB;Integrated Security=True;";
+
+        // 🔹 READ (List)
+        public IActionResult Index()
+        {
+            List<Employee> list = new List<Employee>();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees", con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(new Employee
+                    {
+                        EmpId = Convert.ToInt32(dr["EmpId"]),
+                        EmpName = dr["EmpName"].ToString(),
+                        EmpAddress = dr["EmpAddress"].ToString(),
+                        MobileNo = dr["MobileNo"].ToString(),
+                        BirthDate = Convert.ToDateTime(dr["BirthDate"]),
+                        Password = dr["Password"].ToString()
+                    });
+                }
+            }
+            return View(list);
+        }
+
+        // 🔹 CREATE GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // 🔹 CREATE POST
+        [HttpPost]
+        public IActionResult Create(Employee emp)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "INSERT INTO Employees VALUES(@EmpName,@EmpAddress,@MobileNo,@BirthDate,@Password)";
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@EmpName", emp.EmpName);
+                cmd.Parameters.AddWithValue("@EmpAddress", emp.EmpAddress);
+                cmd.Parameters.AddWithValue("@MobileNo", emp.MobileNo);
+                cmd.Parameters.AddWithValue("@BirthDate", emp.BirthDate);
+                cmd.Parameters.AddWithValue("@Password", emp.Password);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // 🔹 DELETE
+        public IActionResult Delete(int id)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM Employees WHERE EmpId=@id", con);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+    }
+}
+🧩 STEP 5: Views
+📌 1. Index.cshtml (Read + Delete)
+@model List<MVCApp.Models.Employee>
+
+<h2>Employee List</h2>
+
+<a href="/Employee/Create">Add New Employee</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.EmpName</td>
+            <td>@item.EmpAddress</td>
+            <td>@item.MobileNo</td>
+            <td>
+                <a href="/Employee/Delete/@item.EmpId"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+📌 2. Create.cshtml
+@model MVCApp.Models.Employee
+
+<h2>Add Employee</h2>
+
+<form asp-action="Create" method="post">
+    <input asp-for="EmpName" placeholder="Name" />
+    <input asp-for="EmpAddress" placeholder="Address" />
+    <input asp-for="MobileNo" placeholder="Mobile" />
+    <input asp-for="BirthDate" type="date" />
+    <input asp-for="Password" type="password" />
+
+    <button type="submit">Save</button>
+</form>
+
+
+15. Create a database table Student(StudId, StudName, StudAddress,  EmailId, 
+BirthDate,Percentage). Write a Controller action and Views to implement Create 
+, Read , Update operation using ADO.Net. 
+🧩 STEP 1: SQL Table तयार करा
+CREATE TABLE Student
+(
+    StudId INT PRIMARY KEY IDENTITY(1,1),
+    StudName NVARCHAR(50),
+    StudAddress NVARCHAR(100),
+    EmailId NVARCHAR(50),
+    BirthDate DATE,
+    Percentage FLOAT
+);
+🧩 STEP 2: Model तयार करा
+
+👉 Models/Student.cs
+
+using System;
+
+namespace MVCApp.Models
+{
+    public class Student
+    {
+        public int StudId { get; set; }
+        public string StudName { get; set; }
+        public string StudAddress { get; set; }
+        public string EmailId { get; set; }
+        public DateTime BirthDate { get; set; }
+        public double Percentage { get; set; }
+    }
+}
+🧩 STEP 3: Connection String
+
+👉 appsettings.json
+
+"ConnectionStrings": {
+  "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StudentDB;Integrated Security=True;"
+}
+🧩 STEP 4: Controller (ADO.NET)
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Data.SqlClient;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        string conStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StudentDB;Integrated Security=True;";
+
+        // 🔹 READ
+        public IActionResult Index()
+        {
+            List<Student> list = new List<Student>();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Student", con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(new Student
+                    {
+                        StudId = Convert.ToInt32(dr["StudId"]),
+                        StudName = dr["StudName"].ToString(),
+                        StudAddress = dr["StudAddress"].ToString(),
+                        EmailId = dr["EmailId"].ToString(),
+                        BirthDate = Convert.ToDateTime(dr["BirthDate"]),
+                        Percentage = Convert.ToDouble(dr["Percentage"])
+                    });
+                }
+            }
+            return View(list);
+        }
+
+        // 🔹 CREATE GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // 🔹 CREATE POST
+        [HttpPost]
+        public IActionResult Create(Student stud)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "INSERT INTO Student VALUES(@Name,@Address,@Email,@BirthDate,@Percentage)";
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@Name", stud.StudName);
+                cmd.Parameters.AddWithValue("@Address", stud.StudAddress);
+                cmd.Parameters.AddWithValue("@Email", stud.EmailId);
+                cmd.Parameters.AddWithValue("@BirthDate", stud.BirthDate);
+                cmd.Parameters.AddWithValue("@Percentage", stud.Percentage);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // 🔹 UPDATE GET
+        public IActionResult Edit(int id)
+        {
+            Student stud = new Student();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Student WHERE StudId=@id", con);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    stud.StudId = Convert.ToInt32(dr["StudId"]);
+                    stud.StudName = dr["StudName"].ToString();
+                    stud.StudAddress = dr["StudAddress"].ToString();
+                    stud.EmailId = dr["EmailId"].ToString();
+                    stud.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
+                    stud.Percentage = Convert.ToDouble(dr["Percentage"]);
+                }
+            }
+            return View(stud);
+        }
+
+        // 🔹 UPDATE POST
+        [HttpPost]
+        public IActionResult Edit(Student stud)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "UPDATE Student SET StudName=@Name, StudAddress=@Address, EmailId=@Email, BirthDate=@BirthDate, Percentage=@Percentage WHERE StudId=@Id";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@Id", stud.StudId);
+                cmd.Parameters.AddWithValue("@Name", stud.StudName);
+                cmd.Parameters.AddWithValue("@Address", stud.StudAddress);
+                cmd.Parameters.AddWithValue("@Email", stud.EmailId);
+                cmd.Parameters.AddWithValue("@BirthDate", stud.BirthDate);
+                cmd.Parameters.AddWithValue("@Percentage", stud.Percentage);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+    }
+}
+🧩 STEP 5: Views
+📌 1. Index.cshtml (Read)
+@model List<MVCApp.Models.Student>
+
+<h2>Student List</h2>
+
+<a href="/Student/Create">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Percentage</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StudName</td>
+            <td>@item.StudAddress</td>
+            <td>@item.EmailId</td>
+            <td>@item.Percentage</td>
+            <td>
+                <a href="/Student/Edit/@item.StudId">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+📌 2. Create.cshtml
+@model MVCApp.Models.Student
+
+<h2>Add Student</h2>
+
+<form asp-action="Create" method="post">
+    <input asp-for="StudName" placeholder="Name" />
+    <input asp-for="StudAddress" placeholder="Address" />
+    <input asp-for="EmailId" placeholder="Email" />
+    <input asp-for="BirthDate" type="date" />
+    <input asp-for="Percentage" placeholder="Percentage" />
+
+    <button type="submit">Save</button>
+</form>
+📌 3. Edit.cshtml
+@model MVCApp.Models.Student
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="StudId" />
+
+    <input asp-for="StudName" />
+    <input asp-for="StudAddress" />
+    <input asp-for="EmailId" />
+    <input asp-for="BirthDate" type="date" />
+    <input asp-for="Percentage" />
+
+    <button type="submit">Update</button>
+</form>
+
+
+
+16 Delete operation aslyavr
+🧩 STEP 1: Controller मध्ये Delete Action add करा
+
+👉 StudentController.cs मध्ये खालील method add करा:
+
+public IActionResult Delete(int id)
+{
+    using (SqlConnection con = new SqlConnection(conStr))
+    {
+        SqlCommand cmd = new SqlCommand("DELETE FROM Student WHERE StudId=@id", con);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        con.Open();
+        cmd.ExecuteNonQuery();
+    }
+
+    return RedirectToAction("Index");
+}
+🧩 STEP 2: Index View मध्ये Delete Button add करा
+
+👉 Views/Student/Index.cshtml
+
+<td>
+    <a href="/Student/Edit/@item.StudId">Edit</a> |
+    <a href="/Student/Delete/@item.StudId"
+       onclick="return confirm('Are you sure you want to delete?')">
+       Delete
+    </a>
+</td>
+
+
+
+17. Implement a "Search" feature where a user enters an ID or Name and the details 
+are fetched from the database using ADO.NET.
+🧩 STEP 1: Model (Reuse Student)
+
+👉 Models/Student.cs (already आहे)
+
+public class Student
+{
+    public int StudId { get; set; }
+    public string StudName { get; set; }
+    public string StudAddress { get; set; }
+    public string EmailId { get; set; }
+    public DateTime BirthDate { get; set; }
+    public double Percentage { get; set; }
+}
+🧩 STEP 2: Controller मध्ये Search Action
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Data.SqlClient;
+
+public class StudentController : Controller
+{
+    string conStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StudentDB;Integrated Security=True;";
+
+    // 🔹 Search Page
+    public IActionResult Search()
+    {
+        return View();
+    }
+
+    // 🔹 Search Result (POST)
+    [HttpPost]
+    public IActionResult Search(string searchText)
+    {
+        List<Student> list = new List<Student>();
+
+        using (SqlConnection con = new SqlConnection(conStr))
+        {
+            string query = "SELECT * FROM Student WHERE StudId=@id OR StudName LIKE @name";
+
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            int id = 0;
+            int.TryParse(searchText, out id);
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@name", "%" + searchText + "%");
+
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                list.Add(new Student
+                {
+                    StudId = Convert.ToInt32(dr["StudId"]),
+                    StudName = dr["StudName"].ToString(),
+                    StudAddress = dr["StudAddress"].ToString(),
+                    EmailId = dr["EmailId"].ToString(),
+                    BirthDate = Convert.ToDateTime(dr["BirthDate"]),
+                    Percentage = Convert.ToDouble(dr["Percentage"])
+                });
+            }
+        }
+
+        return View("Search", list);
+    }
+}
+🧩 STEP 3: View तयार करा (Search Form + Result)
+
+📁 Views/Student/Search.cshtml
+
+@model List<MVCApp.Models.Student>
+
+<h2>Search Student 🔍</h2>
+
+<form asp-action="Search" method="post">
+    <input type="text" name="searchText" placeholder="Enter ID or Name" />
+    <button type="submit">Search</button>
+</form>
+
+<br />
+
+@if (Model != null && Model.Count > 0)
+{
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Percentage</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudId</td>
+                <td>@item.StudName</td>
+                <td>@item.StudAddress</td>
+                <td>@item.EmailId</td>
+                <td>@item.Percentage</td>
+            </tr>
+        }
+    </table>
+}
+else if (Model != null)
+{
+    <p>No records found ❌</p>
+}
+
+
+
+18. Create a database table Product(ProductId, ProductName, HSNCode, GSTPer,  
+Rate). Write a Controller action and Views to implement Create , Read , Update 
+operation using ADO.Net. 
+🧩 STEP 1: SQL Table तयार करा
+CREATE TABLE Product
+(
+    ProductId INT PRIMARY KEY IDENTITY(1,1),
+    ProductName NVARCHAR(50),
+    HSNCode NVARCHAR(20),
+    GSTPer FLOAT,
+    Rate FLOAT
+);
+🧩 STEP 2: Model तयार करा
+
+👉 Models/Product.cs
+
+namespace MVCApp.Models
+{
+    public class Product
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string HSNCode { get; set; }
+        public double GSTPer { get; set; }
+        public double Rate { get; set; }
+    }
+}
+🧩 STEP 3: Connection String
+
+👉 appsettings.json
+
+"ConnectionStrings": {
+  "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductDB;Integrated Security=True;"
+}
+🧩 STEP 4: Controller (ADO.NET)
+
+👉 ProductController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Data.SqlClient;
+
+namespace MVCApp.Controllers
+{
+    public class ProductController : Controller
+    {
+        string conStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductDB;Integrated Security=True;";
+
+        // 🔹 READ
+        public IActionResult Index()
+        {
+            List<Product> list = new List<Product>();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Product", con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(new Product
+                    {
+                        ProductId = Convert.ToInt32(dr["ProductId"]),
+                        ProductName = dr["ProductName"].ToString(),
+                        HSNCode = dr["HSNCode"].ToString(),
+                        GSTPer = Convert.ToDouble(dr["GSTPer"]),
+                        Rate = Convert.ToDouble(dr["Rate"])
+                    });
+                }
+            }
+            return View(list);
+        }
+
+        // 🔹 CREATE GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // 🔹 CREATE POST
+        [HttpPost]
+        public IActionResult Create(Product p)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "INSERT INTO Product VALUES(@Name,@HSN,@GST,@Rate)";
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@Name", p.ProductName);
+                cmd.Parameters.AddWithValue("@HSN", p.HSNCode);
+                cmd.Parameters.AddWithValue("@GST", p.GSTPer);
+                cmd.Parameters.AddWithValue("@Rate", p.Rate);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // 🔹 UPDATE GET
+        public IActionResult Edit(int id)
+        {
+            Product p = new Product();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Product WHERE ProductId=@id", con);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
+                    p.ProductName = dr["ProductName"].ToString();
+                    p.HSNCode = dr["HSNCode"].ToString();
+                    p.GSTPer = Convert.ToDouble(dr["GSTPer"]);
+                    p.Rate = Convert.ToDouble(dr["Rate"]);
+                }
+            }
+            return View(p);
+        }
+
+        // 🔹 UPDATE POST
+        [HttpPost]
+        public IActionResult Edit(Product p)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = "UPDATE Product SET ProductName=@Name, HSNCode=@HSN, GSTPer=@GST, Rate=@Rate WHERE ProductId=@Id";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@Id", p.ProductId);
+                cmd.Parameters.AddWithValue("@Name", p.ProductName);
+                cmd.Parameters.AddWithValue("@HSN", p.HSNCode);
+                cmd.Parameters.AddWithValue("@GST", p.GSTPer);
+                cmd.Parameters.AddWithValue("@Rate", p.Rate);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
+        }
+    }
+}
+🧩 STEP 5: Views
+📌 1. Index.cshtml (Read)
+@model List<MVCApp.Models.Product>
+
+<h2>Product List</h2>
+
+<a href="/Product/Create">Add Product</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>HSN</th>
+        <th>GST %</th>
+        <th>Rate</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.HSNCode</td>
+            <td>@item.GSTPer</td>
+            <td>@item.Rate</td>
+            <td>
+                <a href="/Product/Edit/@item.ProductId">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+📌 2. Create.cshtml
+@model MVCApp.Models.Product
+
+<h2>Add Product</h2>
+
+<form asp-action="Create" method="post">
+    <input asp-for="ProductName" placeholder="Name" />
+    <input asp-for="HSNCode" placeholder="HSN Code" />
+    <input asp-for="GSTPer" placeholder="GST %" />
+    <input asp-for="Rate" placeholder="Rate" />
+
+    <button type="submit">Save</button>
+</form>
+📌 3. Edit.cshtml
+@model MVCApp.Models.Product
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ProductId" />
+
+    <input asp-for="ProductName" />
+    <input asp-for="HSNCode" />
+    <input asp-for="GSTPer" />
+    <input asp-for="Rate" />
+
+    <button type="submit">Update</button>
+</form>
+
+
+
+19.Delete operation aslyavr
+🧩 STEP 1: Controller मध्ये Delete Action add करा
+
+👉 ProductController.cs मध्ये हा method add करा:
+
+public IActionResult Delete(int id)
+{
+    using (SqlConnection con = new SqlConnection(conStr))
+    {
+        SqlCommand cmd = new SqlCommand("DELETE FROM Product WHERE ProductId=@id", con);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        con.Open();
+        cmd.ExecuteNonQuery();
+    }
+
+    return RedirectToAction("Index");
+}
+🧩 STEP 2: Index View मध्ये Delete button add करा
+
+👉 Views/Product/Index.cshtml
+
+<td>
+    <a href="/Product/Edit/@item.ProductId">Edit</a> |
+    <a href="/Product/Delete/@item.ProductId"
+       onclick="return confirm('Are you sure you want to delete?')">
+       Delete
+    </a>
+</td>
+
+
+
+20. Display Student Names with @foreach 
+Create a view that shows a list of student names. 
+Use @foreach to loop through the collection. 
+Highlight names longer than 10 characters in bold.
+🧩 STEP 1: Controller तयार करा
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        public IActionResult Names()
+        {
+            List<string> students = new List<string>()
+            {
+                "Amit",
+                "AkankshaNale",
+                "Rahul",
+                "SuryakantPatil",
+                "Neha"
+            };
+
+            return View(students);
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Views/Student/Names.cshtml
+
+@model List<string>
+
+<h2>Student Names 🎓</h2>
+
+<ul>
+@foreach (var name in Model)
+{
+    if (name.Length > 10)
+    {
+        <li><b>@name</b></li>
+    }
+    else
+    {
+        <li>@name</li>
+    }
+}
+</ul>
+🧩 STEP 3: Run करा
+
+👉 Browser मध्ये:
+
+https://localhost:xxxx/Student/Names
+
+
+
+21. Conditional Pass/Fail with @if-else 
+Build a view that displays a list of marks. 
+Use @if-else to show: 
+a.  
+“Pass” if marks ≥ 40 
+b.  “Fail” if marks < 40 
+Add Bootstrap classes for green/red styling.
+🧩 STEP 1: Controller तयार करा
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        public IActionResult Result()
+        {
+            List<int> marks = new List<int>() { 75, 35, 60, 20, 90 };
+
+            return View(marks);
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Views/Student/Result.cshtml
+
+@model List<int>
+
+<h2>Student Result 🎓</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Marks</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m</td>
+
+            @if (m >= 40)
+            {
+                <td class="text-success fw-bold">Pass</td>
+            }
+            else
+            {
+                <td class="text-danger fw-bold">Fail</td>
+            }
+        </tr>
+    }
+</table>
+🧩 STEP 3: Bootstrap add करा
+
+👉 _Layout.cshtml मध्ये Bootstrap link असणे आवश्यक:
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+22. Create a view that assigns grades based on marks: 
+A: 80–100 
+B: 60–79 
+C: 40–59 
+F: <40 
+Use @switch to render the grade label.
+🧩 STEP 1: Controller तयार करा
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        public IActionResult Grades()
+        {
+            List<int> marks = new List<int>() { 85, 72, 55, 30, 90 };
+
+            return View(marks);
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Views/Student/Grades.cshtml
+
+@model List<int>
+
+<h2>Student Grades 🎓</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Marks</th>
+        <th>Grade</th>
+    </tr>
+
+    @foreach (var m in Model)
+    {
+        string grade = "";
+
+        switch (m / 10)   // grouping marks
+        {
+            case 10:
+            case 9:
+            case 8:
+                grade = "A";
+                break;
+
+            case 7:
+            case 6:
+                grade = "B";
+                break;
+
+            case 5:
+            case 4:
+                grade = "C";
+                break;
+
+            default:
+                grade = "F";
+                break;
+        }
+
+        <tr>
+            <td>@m</td>
+            <td><b>@grade</b></td>
+        </tr>
+    }
+</table>
+🧩 STEP 3: Run करा
+
+👉 Browser:
+
+https://localhost:xxxx/Student/Grades
+
+
+
+23. Dynamic Menu Rendering 
+Build a navigation menu using a List<string> of items. 
+Use @foreach to render <li> elements. 
+Use @if to highlight the currently selected menu item.
+🧩 STEP 1: Controller तयार करा
+
+👉 HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Menu(string selected)
+        {
+            List<string> menuItems = new List<string>()
+            {
+                "Home",
+                "About",
+                "Services",
+                "Contact"
+            };
+
+            ViewBag.Selected = selected; // current item
+
+            return View(menuItems);
+        }
+    }
+}
+🧩 STEP 2: View तयार करा
+
+📁 Views/Home/Menu.cshtml
+
+@model List<string>
+
+<h2>Dynamic Menu 🍔</h2>
+
+<ul class="nav">
+@foreach (var item in Model)
+{
+    if (item == (string)ViewBag.Selected)
+    {
+        <li class="nav-item">
+            <a class="nav-link active fw-bold text-primary" href="/Home/Menu?selected=@item">
+                @item
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/Menu?selected=@item">
+                @item
+            </a>
+        </li>
+    }
+}
+</ul>
+🧩 STEP 3: Bootstrap add करा
+
+👉 _Layout.cshtml मध्ये:
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+🧩 STEP 4: Run करा
+
+👉 Browser:
+
+https://localhost:xxxx/Home/Menu?selected=Home
+
+
+
+24. Create a view that displays student attendance records. 
+Use @foreach to loop through students. 
+Inside the loop: 
+Use @if-else to show “Present” or “Absent”. 
+Use @switch to show remarks: 
+a. Excellent (100% attendance) 
+b. Good (≥75%) 
+c. Poor (<75%) 
+🧩 STEP 1: Model तयार करा
+
+👉 Models/Attendance.cs
+
+namespace MVCApp.Models
+{
+    public class Attendance
+    {
+        public string Name { get; set; }
+        public int AttendancePercentage { get; set; }
+    }
+}
+🧩 STEP 2: Controller तयार करा
+
+👉 StudentController.cs
+
+using Microsoft.AspNetCore.Mvc;
+using MVCApp.Models;
+using System.Collections.Generic;
+
+namespace MVCApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        public IActionResult AttendanceList()
+        {
+            List<Attendance> list = new List<Attendance>()
+            {
+                new Attendance { Name="Amit", AttendancePercentage=100 },
+                new Attendance { Name="Rahul", AttendancePercentage=80 },
+                new Attendance { Name="Neha", AttendancePercentage=60 },
+                new Attendance { Name="Pooja", AttendancePercentage=75 }
+            };
+
+            return View(list);
+        }
+    }
+}
+🧩 STEP 3: View तयार करा
+
+📁 Views/Student/AttendanceList.cshtml
+
+@model List<MVCApp.Models.Attendance>
+
+<h2>Student Attendance 📊</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Attendance %</th>
+        <th>Status</th>
+        <th>Remarks</th>
+    </tr>
+
+    @foreach (var s in Model)
+    {
+        string remark = "";
+
+        // 🔹 SWITCH for Remarks
+        switch (s.AttendancePercentage)
+        {
+            case 100:
+                remark = "Excellent";
+                break;
+
+            default:
+                if (s.AttendancePercentage >= 75)
+                    remark = "Good";
+                else
+                    remark = "Poor";
+                break;
+        }
+
+        <tr>
+            <td>@s.Name</td>
+            <td>@s.AttendancePercentage</td>
+
+            // 🔹 IF-ELSE for Present/Absent
+            @if (s.AttendancePercentage > 0)
+            {
+                <td class="text-success">Present</td>
+            }
+            else
+            {
+                <td class="text-danger">Absent</td>
+            }
+
+            <td><b>@remark</b></td>
+        </tr>
+    }
+</table>
+
+
+25 to 29 answers
+🧩 25. Subject Class
+using System.ComponentModel.DataAnnotations;
+
+public class Subject
+{
+    public int SubjectId { get; set; }
+
+    [Required(ErrorMessage = "Subject Name is required")]
+    [StringLength(50, ErrorMessage = "Max 50 characters allowed")]
+    public string SubjectName { get; set; }
+
+    [Range(1, 10, ErrorMessage = "Credits must be between 1 to 10")]
+    public int Credits { get; set; }
+}
+🧩 26. Teacher Class
+using System;
+using System.ComponentModel.DataAnnotations;
+
+public class Teacher
+{
+    public int TeacherId { get; set; }
+
+    [Required(ErrorMessage = "Teacher Name is required")]
+    public string TeacherName { get; set; }
+
+    [EmailAddress(ErrorMessage = "Invalid Email")]
+    public string Email { get; set; }
+
+    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Enter valid 10-digit number")]
+    public string PhoneNo { get; set; }
+
+    [DataType(DataType.Date)]
+    public DateTime HireDate { get; set; }
+}
+🧩 27. Course Class
+using System.ComponentModel.DataAnnotations;
+
+public class Course
+{
+    public int CourseId { get; set; }
+
+    [Required(ErrorMessage = "Course Title is required")]
+    [StringLength(100, ErrorMessage = "Max 100 characters allowed")]
+    public string CourseTitle { get; set; }
+
+    [Range(1, 24, ErrorMessage = "Duration must be 1 to 24 months")]
+    public int DurationMonths { get; set; }
+
+    [Range(1000, 100000, ErrorMessage = "Fee must be between 1000 to 100000")]
+    public decimal Fee { get; set; }
+}
+🧩 28. Exam Class
+using System;
+using System.ComponentModel.DataAnnotations;
+
+public class Exam
+{
+    public int ExamId { get; set; }
+
+    [Required(ErrorMessage = "Subject Id is required")]
+    public int SubjectId { get; set; }
+
+    [DataType(DataType.Date)]
+    public DateTime ExamDate { get; set; }
+
+    [Range(50, 200, ErrorMessage = "Marks must be between 50 to 200")]
+    public int MaxMarks { get; set; }
+}
+🧩 29. LibraryBook Class
+using System.ComponentModel.DataAnnotations;
+
+public class LibraryBook
+{
+    public int BookId { get; set; }
+
+    [Required(ErrorMessage = "Title is required")]
+    public string Title { get; set; }
+
+    [Required(ErrorMessage = "Author is required")]
+    public string Author { get; set; }
+
+    [StringLength(13, ErrorMessage = "ISBN must be 13 characters")]
+    public string ISBN { get; set; }
+
+    [Range(1900, 2026, ErrorMessage = "Enter valid year")]
+    public int PublishedYear { get; set; }
+}
+
+
+
+30. Create a layout page with logo , title , menu and sidebar . Add three different 
+views using this layout page. 
+🧩 STEP 1: Layout Page तयार करा
+
+📁 Views/Shared/_Layout.cshtml
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My MVC App</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .sidebar {
+            height: 100vh;
+            background: #f8f9fa;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔷 HEADER -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <img src="https://via.placeholder.com/40" width="40" />
+                MyApp
+            </span>
+        </div>
+    </nav>
+
+    <!-- 🔷 MENU -->
+    <div class="bg-light p-2">
+        <a href="/Home/Index" class="btn btn-outline-primary">Home</a>
+        <a href="/Home/About" class="btn btn-outline-primary">About</a>
+        <a href="/Home/Contact" class="btn btn-outline-primary">Contact</a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 🔷 SIDEBAR -->
+            <div class="col-2 sidebar">
+                <h5>Sidebar</h5>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </div>
+
+            <!-- 🔷 MAIN CONTENT -->
+            <div class="col-10">
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
 
 </body>
-
 </html>
+🧩 STEP 2: ViewStart सेट करा
+
+📁 Views/_ViewStart.cshtml
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+🧩 STEP 3: Controller तयार करा
+
+👉 HomeController.cs
+
+using Microsoft.AspNetCore.Mvc;
+
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public IActionResult About()
+    {
+        return View();
+    }
+
+    public IActionResult Contact()
+    {
+        return View();
+    }
+}
+🧩 STEP 4: Views तयार करा
+📌 1. Index.cshtml
+<h2>Home Page 🏠</h2>
+<p>Welcome to Home Page</p>
+📌 2. About.cshtml
+<h2>About Page ℹ️</h2>
+<p>This is About page</p>
+📌 3. Contact.cshtml
+<h2>Contact Page 📞</h2>
+<p>Contact us here</p>
+
+
+
+
