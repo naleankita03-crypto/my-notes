@@ -1,6 +1,4 @@
-
-
- 1. Create a ProductController with actions returning different types: a View, a JSON
+1. Create a ProductController with actions returning different types: a View, a JSON
 object of product d
 
 Step 1: Create Product Model
